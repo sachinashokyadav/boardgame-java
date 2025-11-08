@@ -25,8 +25,12 @@ pipeline {
         stage('Build Artifact using Maven') {
             tools { maven 'maven' }
             steps {
-                echo "Building project with Maven..."
-                sh 'mvn clean package -DskipTests=true'
+                configFileProvider([configFile(fileId: '6f6fe0af-c937-440b-98f5-af73ab3f1358', variable: 'mavensettings')]) {
+                    echo "Building project with Maven..."
+                    sh 'mvn -s $mavensettings clean deploy -DskipTests=true'
+                 }
+                
+                
             }
         }
 

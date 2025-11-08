@@ -34,30 +34,7 @@ pipeline {
             }
         }
 
-        stage('Upload Artifact to Nexus') {
-            steps {
-                echo "Uploading artifact to Nexus Repository..."
-                script {
-                    def artifactPath = "target/${ARTIFACT_ID}-${VERSION}.jar"
-
-                    sh """
-                    mv target/*.jar ${artifactPath}
-
-                    mvn deploy:deploy-file \
-                        -DgroupId=${GROUP_ID} \
-                        -DartifactId=${ARTIFACT_ID} \
-                        -Dversion=${VERSION} \
-                        -Dpackaging=jar \
-                        -Dfile=${artifactPath} \
-                        -DrepositoryId=nexus \
-                        -Durl=${NEXUS_URL} \
-                        -DgeneratePom=true \
-                        --settings ~/.m2/settings.xml
-                    """
-                }
-            }
-        }
-
+        
         stage('Post Build Cleanup') {
             steps {
                 echo "Cleaning up workspace..."

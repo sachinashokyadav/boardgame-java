@@ -7,7 +7,7 @@ pipeline {
     environment {
         // Nexus details
         NEXUS_URL = "http://nexus:8081/repository/maven-releases/"
-        NEXUS_CREDENTIALS_ID = "nexus-cred-id"  // Jenkins credentials ID for Nexus
+        NEXUS_CREDENTIALS_ID = "nexus-credential"  // Jenkins credentials ID for Nexus
         GROUP_ID = "com.boardgame"
         ARTIFACT_ID = "boardgame-app"
         VERSION = "1.0.${BUILD_NUMBER}"

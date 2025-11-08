@@ -20,6 +20,7 @@ pipeline {
         }
 
         stage('Build Artifact using Maven') {
+            tools { maven 'maven' }
             steps {
                 echo "Building project with Maven..."
                 sh 'mvn clean package -DskipTests=true'

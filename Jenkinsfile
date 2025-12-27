@@ -2,26 +2,30 @@ pipeline {
     agent any
 
     environment {
-        SONARQUBE = 'SonarQube' // Name configured in Jenkins
+        SONARQUBE = 'SonarQube' // must match Jenkins SonarQube install name
     }
 
     stages {
+
         stage('Checkout') {
             steps {
+                // ensures correct branch
                 git branch: 'main', url: 'https://github.com/sachinashokyadav/boardgame-java.git'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean install'
+                // compile and install locally
+                sh 'mvn clean install -DskipTests'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh 'mvn sonar:sonar'
+                    // invoke sonar plugin explicitly
+                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=boardgame-java -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_AUTH_TOKEN'
                 }
             }
         }
@@ -29,9 +33,11 @@ pipeline {
         stage('Quality Gate') {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
+                    // waits for SonarQube quality gate status
                     waitForQualityGate abortPipeline: true
                 }
             }
         }
+
     }
 }

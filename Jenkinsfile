@@ -5,6 +5,10 @@ pipeline {
     //     SONARQUBE = 'SonarQube' // must match Jenkins SonarQube install name
     // }
 
+    tools {
+        maven 'Maven3'
+    }
+
     stages {
 
         stage('Checkout') {

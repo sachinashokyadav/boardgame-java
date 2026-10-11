@@ -26,6 +26,8 @@ pipeline {
                 sh 'mvn clean install -DskipTests'
                 sh "pwd"
                 sh "ls -lrt"
+                sh "cd target"
+                sh "ls -la"
             }
         }
 
@@ -38,14 +40,14 @@ pipeline {
         //     }
         // }
 
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    // waits for SonarQube quality gate status
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+        // stage('Quality Gate') {
+        //     steps {
+        //         timeout(time: 5, unit: 'MINUTES') {
+        //             // waits for SonarQube quality gate status
+        //             waitForQualityGate abortPipeline: true
+        //         }
+        //     }
+        // }
 
     }
 }

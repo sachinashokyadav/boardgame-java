@@ -11,6 +11,8 @@ pipeline {
             steps {
                 // ensures correct branch
                 git branch: 'feature-sachin', url: 'https://github.com/sachinashokyadav/boardgame-java.git'
+                sh "pwd"
+                sh "ls -lrt"
             }
         }
 
@@ -18,6 +20,8 @@ pipeline {
             steps {
                 // compile and install locally
                 sh 'mvn clean install -DskipTests'
+                sh "pwd"
+                sh "ls -lrt"
             }
         }
 

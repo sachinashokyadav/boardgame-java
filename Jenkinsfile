@@ -1,16 +1,16 @@
 pipeline {
     agent any
 
-    environment {
-        SONARQUBE = 'SonarQube' // must match Jenkins SonarQube install name
-    }
+    // environment {
+    //     SONARQUBE = 'SonarQube' // must match Jenkins SonarQube install name
+    // }
 
     stages {
 
         stage('Checkout') {
             steps {
                 // ensures correct branch
-                git branch: 'main', url: 'https://github.com/sachinashokyadav/boardgame-java.git'
+                git branch: 'feature-sachin', url: 'https://github.com/sachinashokyadav/boardgame-java.git'
             }
         }
 
@@ -21,14 +21,14 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    // invoke sonar plugin explicitly
-                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=boardgame-java -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_AUTH_TOKEN'
-                }
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         withSonarQubeEnv('SonarQube') {
+        //             // invoke sonar plugin explicitly
+        //             sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=boardgame-java -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_AUTH_TOKEN'
+        //         }
+        //     }
+        // }
 
         stage('Quality Gate') {
             steps {

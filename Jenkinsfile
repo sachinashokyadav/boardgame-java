@@ -26,8 +26,7 @@ pipeline {
                 sh 'mvn clean install -DskipTests'
                 sh "pwd"
                 sh "ls -lrt"
-                sh "cd target"
-                sh "ls -la"
+                sh "cd target && ls -la"
             }
         }
 

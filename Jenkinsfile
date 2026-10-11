@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    agent {
+        label 'worker-node-1'
+    }
+
     // environment {
     //     SONARQUBE = 'SonarQube' // must match Jenkins SonarQube install name
     // }
